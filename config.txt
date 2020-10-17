@@ -17,24 +17,24 @@ fanStartHeight 0.6 ; The print height at which the fanStart parameter will be co
 
 
 ; Height of the layer
-layerHeight 0.2
+layerHeight 0.20
 layerHeightStart 0.20
 layerHeightFinish 0.20
 
 ; Width of the line
-layerWidth 0.4
+layerWidth 0.40
 layerWidthStart 0.40
 layerWidthFinish 0.40
 
 ; Speed of the print extrusion
 printSpeed 20
 printSpeedStart 20
-printSpeedFinish 220
+printSpeedFinish 20
 
 ; Speed of the print travels
 travelSpeed 120
-travelSpeedStart 20
-travelSpeedFinish 220
+travelSpeedStart 120
+travelSpeedFinish 120
 
 ; Filament length to be retracted before travels
 retractLength 1.0
@@ -42,14 +42,14 @@ retractLengthStart 1.0
 retractLengthFinish 1.0
 
 ; Speed of the retractions
-retractSpeed 25
-retractSpeedStart 25
-retractSpeedFinish 25
+retractSpeed 50
+retractSpeedStart 50
+retractSpeedFinish 50
 
 ; Temperature of extrusion
-temperature  230
-temperatureStart 230
-temperatureFinish 230
+temperature  250
+temperatureStart 250
+temperatureFinish 200
 
 ; Speed of the part cooling fan.
 ; This value is given in 0 to 255 format.
