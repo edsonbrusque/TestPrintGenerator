@@ -5,7 +5,7 @@ A generator of GCODE files for testing 3D printers, filaments and related stuffs
 Edson Brusque - September 2020
 
 
-# What is this?
+## What is this?
 
 This is a command line piece of software written in plain old C that generates GCODE files for testing various features of 3D printers.
 
@@ -14,7 +14,7 @@ GCODE is commands (like move, extrude, change temperature, etc) that 3D printers
 This software generates a file, based on user parameters, that can be run on a machine for making "temperature towers" (for finding optimal extruding temperature), "stringing tests" (for finding best retraction settings) and other nerdy stuffs.
 
 
-# How can I use it?
+## How can I use it?
 
 First you set the general shape of the object you want to print in the "pattern.txt" file.
 
@@ -25,12 +25,12 @@ Finally, you just run the executable file "TestPrint.exe".
 A "TestPrint.gcode" file will be created. You can put this file on an SD card or use any other method to send it to your 3D printer and generate the test object.
 
 
-# There are some sample files?
+## There are some sample files?
 
 Sure. You can find pattern.txt and config.txt example files on the child folders. There's temperature towers, retraction tests, speed test...
 
 
-HOW DO I MODIFY THE CONFIG.TXT FILE TO SUIT MY NEEDS?
+## How do I modify the config.txt file to suit my needs?
 
 Just open and change them according to your need or taste. Most of the parameters are pretty self explanatory.
 
@@ -47,7 +47,7 @@ This means that when just starting the print, the layerHeight (0.20 mm) value wi
 You can do this for other parameters like hotend temperature, print speed, retraction length etc.
 
 
-# What does the numbers in the pattern.txt file mean?
+## What does the numbers in the pattern.txt file mean?
 
 They are just the points that define the pattern (the shape or profile) of the generated object.
 
@@ -74,32 +74,32 @@ So, each line of the file define a point. But also, in a sense, defines a line. 
 In this case, we're still defining four points. But we're defining only three lines. So our object will have three sides. This kind of object is useful to test retractions or travel speeds, for example.
 
 
-# That sound nice, but can I change the source code?
+## That sound nice, but can I change the source code?
 
 You're invited to!!! This is free code. Use and abuse it.
 
 
-# How can I compile it in Windows?
+## How can I compile it in Windows?
 
 In Windows probably the easier way is using DEV-C++ (https://sourceforge.net/projects/orwelldevcpp/).
 
-Open "main.c".
-Go to Tools -> Compiler Options.
-Click "Add the following commands when calling the compiler:".
-Add "std=c99" do the corresponding text box and click OK.
-Click [F11] and the program should compile and run.
+* Open "main.c".
+* Go to Tools -> Compiler Options.
+* Click "Add the following commands when calling the compiler:".
+* Add "std=c99" do the corresponding text box and click OK.
+* Click [F11] and the program should compile and run.
 
 We avoided using advanced features so it should compile without any problems on most compilers and environments.
 
 
-# How can I compile it in Linux?
+## How can I compile it in Linux?
 
 Just run "gcc main.c -lm -o TestPrint.exe" on the terminal on the same folder as "main.c"
 
 If you have problems compiling, probably you don't gave the gcc compiler installed. Usually just running "sudo apt install gcc" on your terminal solves it.
 
 
-# This code is stupid. Why?
+## This code is stupid. Why?
 
 Laziness, ignorance and lack of time. Not necessarily in this order.
 
@@ -108,14 +108,14 @@ But hey! You're invite to contribute. Let's make it better!
 Just one point in my defense though: as I expect this code to be seen (and hopefully contributed) by people who are not day job C programmers, I preferred to sacrifice compactness and elegance for just plain simple and easy to understand code wherever I could.
 
 
-# Why do you write your comments in English? You're not even good at it?
+## Why do you write your comments in English? You're not even good at it?
 
 Again, because I think this is useful code and I want people from all over the World to use, understand and contribute.
 
 But I plan to maintain a Portuguese version of this README.md file. just look for the "LEIAME.md".
 
 
-# The brim sucks. Can you make it better?
+## The brim sucks. Can you make it better?
 
 Yeah, I know. :(
 
@@ -124,14 +124,14 @@ This is where the ignorance and lack of time comes into play. The way brims are 
 If you have an idea of how to make a better brim generator. Let me know.
 
 
-# Any to do's?
+## Any to do's?
 
 Besides a better brim generator, a 'bottom' generator could be a good option for more complex parts. That's probably the next thing I'll implement.
 
 Again, if you have any ideas, let me know.
 
 
-# Thanks!
+## Thanks!
 
 You're welcome. :)
 
