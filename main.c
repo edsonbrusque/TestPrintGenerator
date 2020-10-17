@@ -462,7 +462,7 @@ void main() {
   fprintf(fp, "\n");
 
   fprintf(fp, "M84 ; Disable all steppers\n");
-  fprintf(fp, "M106 S0 ; Turn-off fanSpeed\n");
+  fprintf(fp, "M106 S0 ; Turn-off fan\n");
   fprintf(fp, "M104 S0 ; Turn-off hotend\n");
   fprintf(fp, "M140 S0 ; Turn-off bed\n");
 
