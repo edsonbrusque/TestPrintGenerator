@@ -8,7 +8,7 @@ Isso é um software de linha de comando escrito em C simples que gera arquivos G
 
 GCODE são comandos (como mover, extrusar, alterar temperatura etc) que as impressoras 3D executam em ordem sequencial.
 
-Este software gera um arquivo, baseado em parâmetros fornecidos pelo usuário, que pode ser executado em uma máquina para fazer "torres de temperatura" (para encontrar a temperatura de extrusão ideal), "testes de stringing" (para encontrar as melhores configurações de retração) e outros coisas nerd.
+Este software gera um arquivo, baseado em parâmetros fornecidos pelo usuário, que pode ser executado em uma máquina para fazer "torres de temperatura" (para encontrar a temperatura de extrusão ideal), "testes de stringing" (para encontrar as melhores configurações de retração) e outras coisas nerd.
 
 
 COMO POSSO USAR?
@@ -22,29 +22,29 @@ Por fim, basta rodar o arquivo executável "TestPrint.exe".
 Um arquivo "TestPrint.gcode" será criado. Você pode colocar este arquivo em um cartão SD ou usar qualquer outro método para enviá-lo para sua impressora 3D e gerar o objeto de teste.
 
 
-HÁ ALGUNS ARQUIVOS DE EXEMPLO?
+HÁ ALGUM ARQUIVO DE EXEMPLO?
 
 Claro. Você pode encontrar arquivos de exemplo pattern.txt e config.txt nas sub-pastas. Há torres de temperatura, testes de retração, teste de velocidade...
 
 
 COMO POSSO MODIFICAR O ARQUIVO CONFIG.TXT PARA ATENDER ÀS MINHAS NECESSIDADES?
 
-Basta abri-lo e alterá-lo de acordo com sua necessidade ou gosto. A maioria dos parâmetros são autoexplicativos.
+Basta abrir e alterá-los de acordo com sua necessidade ou gosto. A maioria dos parâmetros são autoexplicativos.
 
 Alguns parâmetros, como filamentDiameter e bedTemperature são estáticos. Isto significa que seus valores serão os mesmos durante toda a impressão do objeto.
 
-Outros parâmetros são variáveis ​​durante o tempo de impressão e é aqui onde a diversão acontece. Você pode definir, por exemplo:
+Outros parâmetros são variáveis durante o tempo de impressão e é aqui onde a diversão acontece. Você pode definir, por exemplo:
 
-	layerHeight 0.20
-	layerHeightStart 0.10
-	layerHeightFinish 0.40
+layerHeight 0.20
+layerHeightStart 0.10
+layerHeightFinish 0.40
 
-Isto significa que ao iniciar a impressão, o valor de layerHeight (0.20 mm) será utilizado para gerar a primeira camada. A seguir, a impressora fará a impressão variando linearmente a altura das camadas de 0.10 mm para a segunda camada até 0.40 mm para as última. Desta forma, você pode analisar a diferença de qualidade que diferentes alturas de camada podem gerar.
+Isto significa que ao iniciar a impressão, o valor de layerHeight (0.20 mm) será utilizado para gerar a primeira camada. A seguir, a impressora fará a impressão variando linearmente a altura das camadas de layerHeightStart (0.10 mm) para a segunda camada até layerHeightFinish (0.40 mm) para a última. Desta forma, você pode analisar a diferença de qualidade que diferentes alturas de camada podem gerar.
 
 Você pode fazer isso para vários outros parâmetros como temperatura do hotend, velocidade da impressão, comprimento da retração etc.
 
 
-O QUE SIGNIFICA OS NÚMEROS NO ARQUIVO PATTERN.TXT?
+O QUE SIGNIFICAM OS NÚMEROS NO ARQUIVO PATTERN.TXT?
 
 Eles são os pontos que definem o padrão (a forma ou perfil) do objeto gerado.
 
@@ -93,7 +93,7 @@ COMO COMPILAR NO LINUX?
 
 Basta executar "gcc main.c -lm -o TestPrint.exe" no terminal na mesma pasta do arquivo "main.c"
 
-Se você tiver problemas para compilar, provavelmente não tem instalado o compilador gcc. Normalmente, apenas executar "sudo apt install gcc" no terminal resolve o problema.
+Se você tiver problemas para compilar, provavelmente não o compilador gcc não está instalado. Normalmente, apenas executar "sudo apt install gcc" no terminal resolve o problema.
 
 
 ESTE CÓDIGO É ESTÚPIDO. PORQUE?
@@ -102,14 +102,14 @@ Preguiça, ignorância e falta de tempo. Não necessariamente nesta ordem.
 
 Mas ei! Você está convidado a contribuir. Vamos torná-lo melhor!
 
-Mas, um ponto em minha defesa: como espero que este código seja visto (e felizmente contribuído) por pessoas que não são programadores C no dia-a-dia, eu preferi sacrificar elegância por simplicidade. Prefiro código fácil de entender a código compacto, mesmo que ciente de nem sempre conseguir esse resultado.
+Porém, um ponto em minha defesa: como espero que este código seja visto (e quem sabe contribuído) por pessoas que não são programadores C no dia-a-dia, eu preferi sacrificar elegância por simplicidade. Prefiro código fácil de entender a código compacto, mesmo ciente de nem sempre conseguir esse resultado.
 
 
 POR QUE VOCÊ ESCREVE SEUS COMENTÁRIOS EM INGLÊS? SEU INGLÊS É HORRÍVEL!
 
 Novamente, porque acredito que este código é útil e quero que pessoas de todo o mundo usem, entendam e contribuam.
 
-Mas pretendo ao menos manter esta versão em português do readme.txt.
+Mas pretendo ao menos manter esta versão em português do read.me.
 
 
 O BRIM É UMA DROGA. NÃO PODE FAZER MELHOR?
@@ -118,12 +118,12 @@ O BRIM É UMA DROGA. NÃO PODE FAZER MELHOR?
 
 É aqui que entra a parte da ignorância e falta de tempo. A forma como o brim é gerado funciona bem apenas para perfis muito simples como um quadrado. Mas em geral ele serve bem para a sua função de manter o objeto no lugar.
 
-Se você tem ideia de como fazer um gerador de brim melhor. Avise-se me.
+Se você tem ideia de como fazer um gerador de brim melhor. Por favor me fale.
 
 
 O QUE MAIS FALTA FAZER?
 
-Além de um gerador de brim melhor, um gerador de 'bases' seria uma boa opção (no lugar do brim) para peças mais complexas. Essa é provavelmente a próxima coisa a implementar.
+Além de um gerador de brim melhor, um gerador de 'bases' (no lugar do brim) poderia ser uma boa opção para peças mais complexas. Essa é provavelmente a próxima coisa a implementar.
 
 Novamente, se você tiver alguma ideia, me avise.
 
