@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define M_PI 3.14159265358979323846  // pi
 
@@ -20,16 +21,16 @@ typedef struct point_st point_t;
 
 float totalHeight = 50.0;
 float filamentDiameter = 1.75;
-float firstLayerHeight = 0.2;
+float firstLayerHeight = 0.20;
 float zSpeed = 20;
 float bedTemperature = 60;
 int brimCount = 5;
 
-float layerHeight = 0.2;
+float layerHeight = 0.20;
 float layerHeightStart = 0.20;
 float layerHeightFinish = 0.20;
 
-float layerWidth = 0.4;
+float layerWidth = 0.40;
 float layerWidthStart = 0.40;
 float layerWidthFinish = 0.40;
 
@@ -42,8 +43,8 @@ float travelSpeedStart = 120;
 float travelSpeedFinish = 120;
 
 float retractLength = 1.0;
-float retractLengthStart = 0.5;
-float retractLengthFinish = 1.5;
+float retractLengthStart = 1.0;
+float retractLengthFinish = 1.0;
 
 float minRetractDistance = 1.0;
 
@@ -147,7 +148,7 @@ void move(float x, float y) {
 
   float distance = sqrt(pow(x - previousX, 2) + pow(y - previousY, 2));
 
-  if (distance > minRetractDistance && 
+  if (distance > minRetractDistance &&
       m(lengthRetracted) < m(retractLength)) retract();
 
   fprintf(fp, "G0 F%.2f X%.2f Y%.2f\n", travelSpeed * 60, x, y);
@@ -182,18 +183,17 @@ void extrude(float x, float y) {
 
 
 // *****************************************************************************
-// This functions read the settings from the config.txt file
-// readConfigFileFloat() opens and closes the file on each call, what is
+// These functions read the settings from the config.txt file.
+// readConfigFileFloat() opens and closes the file on each call, which is
 // really an ugly way of doing it. But it works an it's simple.
 
 float readConfigFileFloat(char * parameter, float def)
 {
-  FILE *fptr;  
+  FILE *fptr;
   if ((fptr = fopen("config.txt","r")) == NULL){
     printf("Error opening config.txt file.");
-    //exit(1);
+    exit(1);
   }
-  //printf("\nFile config.txt opened.\n");
 
   int bytesRead;
   char line[256];
@@ -204,18 +204,18 @@ float readConfigFileFloat(char * parameter, float def)
     sscanf (line, "%s %f", str, &f);
     if (strcmp(str, parameter) == 0) {
       fprintf(fp, "; %s = %.2f\n", str, f);
-      
+
       // Just some very primitive sanity check
       if (m(f) > 0 && f < 1000) {
         def = f;
       }
-      
+
       break;
     }
   }
-  
+
   fclose(fptr);
-  
+
   return def;
 }
 
@@ -229,7 +229,7 @@ void readConfigFile() {
   zSpeed = readConfigFileFloat("zSpeed", 10);
   minRetractDistance = readConfigFileFloat("minRetractDistance", 1.0);
   fanStartHeight = readConfigFileFloat("fanStartHeight", 0.6);
-   
+
   layerHeight = readConfigFileFloat("layerHeight", 0.20);
   layerHeightStart = readConfigFileFloat("layerHeightStart", 0.20);
   layerHeightFinish = readConfigFileFloat("layerHeightFinish", 0.20);
@@ -249,11 +249,11 @@ void readConfigFile() {
   retractLength = readConfigFileFloat("retractLength", 1.0);
   retractLengthStart = readConfigFileFloat("retractLengthStart", 1.0);
   retractLengthFinish = readConfigFileFloat("retractLengthFinish", 1.0);
-  
+
   retractSpeed = readConfigFileFloat("retractSpeed", 25);
   retractSpeedStart = readConfigFileFloat("retractSpeedStart", 25);
   retractSpeedFinish = readConfigFileFloat("retractSpeedFinish", 25);
-  
+
   temperature = readConfigFileFloat("temperature", 230);
   temperatureStart = readConfigFileFloat("temperatureStart", 230);
   temperatureFinish = readConfigFileFloat("temperatureFinish", 230);
@@ -283,35 +283,34 @@ void addPoint(float x, float y, float e)
 
 void readPatternFile()
 {
-  int bytesRead;
   FILE *fptr;
-  
+
   if ((fptr = fopen("pattern.txt","r")) == NULL){
     printf("Error opening pattern.txt file.");
-    //exit(1);
+    exit(1);
   }
-  //printf("\nFile pattern.txt opened.\n");
-  
+
   float x, y, e;
 
-  do {
-    bytesRead = fscanf(fptr,"%f %f %f", &x, &y, &e);
-    
+  while (1) {
+    int valuesRead = fscanf(fptr,"%f %f %f", &x, &y, &e);
+
+    if (valuesRead < 3) break;
+
     fprintf(fp, "; %.2f %.2f %.2f\n", x, y, e);
-    
+
     addPoint(x, y, e);
-  } while (bytesRead > 0);
-  
-  printf("\n");
-  fclose(fptr); 
+  }
+
+  fclose(fptr);
 }
 
 
 // *****************************************************************************
 // And this is our main program entry point!
 void main() {
-  
-  printf("Starting...\n");
+
+  printf("Starting... ");
 
   fp = fopen("TestPrint.gcode", "w");  //opening file.
 
@@ -373,19 +372,19 @@ void main() {
   }
   centerX /= numPoints;
   centerY /= numPoints;
-  
+
   for (int i = brimCount; i > 0; i--) {
     float x, y, d;
 
     height(firstLayerHeight);
     d = layerWidth * i;
-    
+
     for (int j = 0; j < numPoints; j++) {
       if (points[j].x > centerX)
         x = points[j].x + d;
       else
         x = points[j].x - d;
-      
+
       if (points[j].y > centerY)
         y = points[j].y + d;
       else
@@ -393,12 +392,12 @@ void main() {
 
       if (points[j].e == 0) {
         move(x, y);
-      }        
+      }
       else {
         extrude(x, y);
       }
     }
-    
+
     fprintf(fp, "\n");
   }
 
@@ -409,7 +408,7 @@ void main() {
     temperature = temperatureStart + (temperatureFinish - temperatureStart) * multiplier;
 
     printSpeed = printSpeedStart + (printSpeedFinish - printSpeedStart) * multiplier;
-    
+
     travelSpeed = travelSpeedStart + (travelSpeedFinish - travelSpeedStart) * multiplier;
 
     retractSpeed = retractSpeedStart + (retractSpeedFinish - retractSpeedStart) * multiplier;
@@ -473,7 +472,7 @@ void main() {
 
   fclose(fp);  //closing file.
 
-  printf("Finished.\n");
+  printf("Finished!\n");
 }
 
 // This is the end... my friend.
