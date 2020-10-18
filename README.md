@@ -38,9 +38,9 @@ Some parameters, like filamentDiameter and bedTemperature are static. This means
 
 Other parameters are variable during the printing time and here is where the fun happens. You can set, for example:
 
-layerHeight 0.20
-layerHeightStart 0.10
-layerHeightFinish 0.40
+    layerHeight 0.20
+    layerHeightStart 0.10
+    layerHeightFinish 0.40
 
 This means that when just starting the print, the layerHeight (0.20 mm) value will be used for generating the first layer. Then, the printer will make the print varying linearly the height of the layers from layerHeightStart (0.10 mm) for the second layer to layerHeightFinish (0.40 mm) to the last layer. This way, you can analyze the difference in quality that different layer heights can generate.
 
@@ -53,10 +53,10 @@ They are just the points that define the pattern (the shape or profile) of the g
 
 For example, if you want to generate a square tube, you can use something like:
 
- 90.0  90.0 1
- 90.0 110.0 1
-110.0 110.0 1
-110.0  90.0 1
+     90.0  90.0 1
+     90.0 110.0 1
+    110.0 110.0 1
+    110.0  90.0 1
 
 Each line defines a point. Well, sort off. Just bear with me.
 
@@ -66,10 +66,10 @@ The third column tells the generator if a move to this point is an "extrude" (a 
 
 So, each line of the file define a point. But also, in a sense, defines a line. Yeah, I know it sound a little confuse but let's use another example:
 
- 90.0  90.0 1
- 90.0 110.0 1
-110.0 110.0 1
-110.0  90.0 0
+     90.0  90.0 1
+     90.0 110.0 1
+    110.0 110.0 1
+    110.0  90.0 0
 
 In this case, we're still defining four points. But we're defining only three lines. So our object will have three sides. This kind of object is useful to test retractions or travel speeds, for example.
 

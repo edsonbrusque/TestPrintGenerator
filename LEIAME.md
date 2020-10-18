@@ -38,9 +38,9 @@ Alguns parâmetros, como filamentDiameter e bedTemperature são estáticos. Isto
 
 Outros parâmetros são variáveis durante o tempo de impressão e é aqui onde a diversão acontece. Você pode definir, por exemplo:
 
-layerHeight 0.20
-layerHeightStart 0.10
-layerHeightFinish 0.40
+    layerHeight 0.20
+    layerHeightStart 0.10
+    layerHeightFinish 0.40
 
 Isto significa que ao iniciar a impressão, o valor de layerHeight (0.20 mm) será utilizado para gerar a primeira camada. A seguir, a impressora fará a impressão variando linearmente a altura das camadas de layerHeightStart (0.10 mm) para a segunda camada até layerHeightFinish (0.40 mm) para a última. Desta forma, você pode analisar a diferença de qualidade que diferentes alturas de camada podem gerar.
 
@@ -53,10 +53,10 @@ Eles são os pontos que definem o padrão (a forma ou perfil) do objeto gerado.
 
 Por exemplo, se você deseja gerar um tubo quadrado, pode usar algo como:
 
- 90.0  90.0 1
- 90.0 110.0 1
-110.0 110.0 1
-110.0  90.0 1
+     90.0  90.0 1
+     90.0 110.0 1
+    110.0 110.0 1
+    110.0  90.0 1
 
 Cada linha define um ponto. Bem, mais ou menos. Já voltaremos a essa questão.
 
@@ -66,10 +66,10 @@ A terceira coluna informa ao gerador se um movimento até este ponto é uma "ext
 
 Portanto, cada linha do arquivo define um ponto. Mas também, em certo sentido, define uma linha. Sim, eu sei que parece um pouco confuso, mas vamos usar outro exemplo:
 
- 90.0  90.0 1
- 90.0 110.0 1
-110.0 110.0 1
-110.0  90.0 0
+     90.0  90.0 1
+     90.0 110.0 1
+    110.0 110.0 1
+    110.0  90.0 0
 
 Neste caso, ainda estamos definindo quatro pontos. Mas estamos definindo apena três linhas. Portanto, nosso objeto terá três lados. Esse tipo de objeto é útil para testar retrações ou velocidades de deslocamento, por exemplo.
 
