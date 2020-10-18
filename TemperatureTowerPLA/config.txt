@@ -17,12 +17,12 @@ fanStartHeight 0.6 ; The print height at which the fanStart parameter will be co
 
 
 ; Height of the layer
-layerHeight 0.2
+layerHeight 0.20
 layerHeightStart 0.20
 layerHeightFinish 0.20
 
 ; Width of the line
-layerWidth 0.4
+layerWidth 0.40
 layerWidthStart 0.40
 layerWidthFinish 0.40
 
