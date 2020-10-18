@@ -206,7 +206,7 @@ float readConfigFileFloat(char * parameter, float def)
       fprintf(fp, "; %s = %.2f\n", str, f);
 
       // Just some very primitive sanity check
-      if (m(f) > 0 && f < 1000) {
+      if (m(f) >= 0 && f = 1000) {
         def = f;
       }
 
@@ -317,11 +317,11 @@ void main() {
   fprintf(fp, "; Brusque's 3D Printer Test GCODE Generator\n");
   fprintf(fp, "\n");
 
-  fprintf(fp, "; Reading parameters from config.txt\n");  
+  fprintf(fp, "; Reading parameters from config.txt\n");
   readConfigFile();
   fprintf(fp, "\n");
 
-  fprintf(fp, "; Reading figure from pattern.txt\n");  
+  fprintf(fp, "; Reading figure from pattern.txt\n");
   readPatternFile();
   fprintf(fp, "\n");
 
