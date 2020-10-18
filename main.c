@@ -203,11 +203,11 @@ float readConfigFileFloat(char * parameter, float def)
   while (fgets(line, sizeof(line), fptr)) {
     sscanf (line, "%s %f", str, &f);
     if (strcmp(str, parameter) == 0) {
-      fprintf(fp, "; %s = %.2f\n", str, f);
 
       // Just some very primitive sanity check
-      if (m(f) >= 0 && f = 1000) {
+      if (m(f) >= 0 && f < 1000) {
         def = f;
+        fprintf(fp, "; %s = %.2f\n", str, f);
       }
 
       break;
