@@ -1,7 +1,7 @@
 totalHeight 50.0 ; Total height of the print
 filamentDiameter 1.75 ; Diameter of the filament
 firstLayerHeight 0.2 ; Height of the first layer. Height of the brim if it's the case.
-bedTemperature 60 ; Temperature of the bed during printing
+bedTemperature 80 ; Temperature of the bed during printing
 brimCount 5 ; Number of brim lines. Set to 0 if you don't want a brim.
 zSpeed 10 ; Rate of Z axis movements
 minRetractDistance 1.0 ; Minimum distance to consider a retract
@@ -17,12 +17,12 @@ fanStartHeight 0.6 ; The print height at which the fanStart parameter will be co
 
 
 ; Height of the layer
-layerHeight 0.2
+layerHeight 0.20
 layerHeightStart 0.20
 layerHeightFinish 0.20
 
 ; Width of the line
-layerWidth 0.4
+layerWidth 0.40
 layerWidthStart 0.40
 layerWidthFinish 0.40
 
@@ -39,12 +39,12 @@ travelSpeedFinish 120
 ; Filament length to be retracted before travels
 retractLength 1.0
 retractLengthStart 0.0
-retractLengthFinish 5.0
+retractLengthFinish 2.5
 
 ; Speed of the retractions
-retractSpeed 50
-retractSpeedStart 50
-retractSpeedFinish 50
+retractSpeed 25
+retractSpeedStart 25
+retractSpeedFinish 25
 
 ; Temperature of extrusion
 temperature 230
@@ -60,4 +60,3 @@ temperatureFinish 230
 fanSpeed 0
 fanSpeedStart 0
 fanSpeedFinish 0
-
