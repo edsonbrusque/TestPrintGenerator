@@ -1,38 +1,6 @@
 ; Brusque's 3D Printer Test GCODE Generator
 
 ; Reading parameters from config.txt
-; totalHeight = 60.00
-; filamentDiameter = 1.75
-; firstLayerHeight = 0.20
-; bedTemperature = 80.00
-; brimCount = 5.00
-; zSpeed = 10.00
-; minRetractDistance = 1.00
-; fanStartHeight = 0.60
-; layerHeight = 0.20
-; layerHeightStart = 0.20
-; layerHeightFinish = 0.20
-; layerWidth = 0.40
-; layerWidthStart = 0.40
-; layerWidthFinish = 0.40
-; printSpeed = 20.00
-; printSpeedStart = 20.00
-; printSpeedFinish = 20.00
-; travelSpeed = 120.00
-; travelSpeedStart = 120.00
-; travelSpeedFinish = 120.00
-; retractLength = 1.00
-; retractLengthStart = 1.00
-; retractLengthFinish = 1.00
-; retractSpeed = 25.00
-; retractSpeedStart = 25.00
-; retractSpeedFinish = 25.00
-; temperature = 260.00
-; temperatureStart = 260.00
-; temperatureFinish = 200.00
-; fanSpeed = 0.00
-; fanSpeedStart = 0.00
-; fanSpeedFinish = 0.00
 
 ; Reading figure from pattern.txt
 ; 90.00 90.00 0.00
