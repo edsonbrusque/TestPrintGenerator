@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define M_PI 3.14159265358979323846  // pi
 
@@ -9,12 +9,11 @@
 // This is just a structure to a point
 
 struct point_st {
-	float x;
-	float y;
-	float e;
+  float x;
+  float y;
+  float e;
 };
 typedef struct point_st point_t;
-
 
 // *****************************************************************************
 // Print variables and default values are defined here
@@ -61,24 +60,20 @@ float fanSpeedStart = 128;
 float fanSpeedFinish = 128;
 float fanStartHeight = 0.6;
 
-
 // *****************************************************************************
 // These are counters for final statistics
 float totalTime = 0;
 float totalTravel = 0;
 float totalExtrudeLength = 0;
 
-
 // *****************************************************************************
 // These variables hold the previous position so the extrude() function
 // can calculate how much material it needs to extrude among other things
 float previousX, previousY, previousZ;
 
-
 // *****************************************************************************
 // This will hold a pointer to our output file
 FILE *fp;
-
 
 // *****************************************************************************
 // This function takes a float and returns millis in int format
@@ -86,7 +81,6 @@ FILE *fp;
 int m(float f) {
   return (int)(f * 1000);
 }
-
 
 // *****************************************************************************
 // Function for changing the hotend temperature
@@ -100,7 +94,6 @@ void changeHotendTemperature(float temperature) {
   previousTemperature = temperature;
 }
 
-
 // *****************************************************************************
 // Functions for changing the speed of the hotend fan.
 void changeFanSpeed(float fanSpeed) {
@@ -112,7 +105,6 @@ void changeFanSpeed(float fanSpeed) {
 
   previousFanSpeed = fanSpeed;
 }
-
 
 // *****************************************************************************
 // Functions for retracting and returning the filament.
@@ -129,7 +121,6 @@ void comeback() {
   lengthRetracted = 0;
 }
 
-
 // *****************************************************************************
 // This function moves the carriage in the z axis
 void height(float z) {
@@ -139,7 +130,6 @@ void height(float z) {
 
   previousZ = z;
 }
-
 
 // *****************************************************************************
 // This function creates a move to point  (x,y)
@@ -158,7 +148,6 @@ void move(float x, float y) {
   totalTime += distance / printSpeed;
   totalTravel += distance;
 }
-
 
 // *****************************************************************************
 // This function creates an extrude to point (x,y)
@@ -181,89 +170,6 @@ void extrude(float x, float y) {
   totalExtrudeLength += extrude;
 }
 
-
-// *****************************************************************************
-// These functions read the settings from the config.txt file.
-// readConfigFileFloat() opens and closes the file on each call, which is
-// really an ugly way of doing it. But it works an it's simple.
-
-float readConfigFileFloat(char * parameter, float def)
-{
-  FILE *fptr;
-  if ((fptr = fopen("config.txt","r")) == NULL){
-    printf("Error opening config.txt file.");
-    exit(1);
-  }
-
-  int bytesRead;
-  char line[256];
-  char str[20];
-  float f;
-
-  while (fgets(line, sizeof(line), fptr)) {
-    sscanf (line, "%s %f", str, &f);
-    if (strcmp(str, parameter) == 0) {
-
-      // Just some very primitive sanity check
-      if (m(f) >= 0 && f < 1000) {
-        def = f;
-        fprintf(fp, "; %s = %.2f\n", str, f);
-      }
-
-      break;
-    }
-  }
-
-  fclose(fptr);
-
-  return def;
-}
-
-
-void readConfigFile() {
-  totalHeight = readConfigFileFloat("totalHeight", 50.0);
-  filamentDiameter = readConfigFileFloat("filamentDiameter", 1.75);
-  firstLayerHeight = readConfigFileFloat("firstLayerHeight", 0.2);
-  bedTemperature = readConfigFileFloat("bedTemperature", 60);
-  brimCount = readConfigFileFloat("brimCount", 5);
-  zSpeed = readConfigFileFloat("zSpeed", 10);
-  minRetractDistance = readConfigFileFloat("minRetractDistance", 1.0);
-  fanStartHeight = readConfigFileFloat("fanStartHeight", 0.6);
-
-  layerHeight = readConfigFileFloat("layerHeight", 0.20);
-  layerHeightStart = readConfigFileFloat("layerHeightStart", 0.20);
-  layerHeightFinish = readConfigFileFloat("layerHeightFinish", 0.20);
-
-  layerWidth = readConfigFileFloat("layerWidth", 0.40);
-  layerWidthStart = readConfigFileFloat("layerWidthStart", 0.40);
-  layerWidthFinish = readConfigFileFloat("layerWidthFinish", 0.40);
-
-  printSpeed = readConfigFileFloat("printSpeed", 20);
-  printSpeedStart = readConfigFileFloat("printSpeedStart", 20);
-  printSpeedFinish = readConfigFileFloat("printSpeedFinish", 20);
-
-  travelSpeed = readConfigFileFloat("travelSpeed", 120);
-  travelSpeedStart = readConfigFileFloat("travelSpeedStart", 120);
-  travelSpeedFinish = readConfigFileFloat("travelSpeedFinish", 120);
-
-  retractLength = readConfigFileFloat("retractLength", 1.0);
-  retractLengthStart = readConfigFileFloat("retractLengthStart", 1.0);
-  retractLengthFinish = readConfigFileFloat("retractLengthFinish", 1.0);
-
-  retractSpeed = readConfigFileFloat("retractSpeed", 25);
-  retractSpeedStart = readConfigFileFloat("retractSpeedStart", 25);
-  retractSpeedFinish = readConfigFileFloat("retractSpeedFinish", 25);
-
-  temperature = readConfigFileFloat("temperature", 230);
-  temperatureStart = readConfigFileFloat("temperatureStart", 230);
-  temperatureFinish = readConfigFileFloat("temperatureFinish", 230);
-
-  fanSpeed = readConfigFileFloat("fanSpeed", 0);
-  fanSpeedStart = readConfigFileFloat("fanSpeedStart", 0);
-  fanSpeedFinish = readConfigFileFloat("fanSpeedFinish", 0);
-}
-
-
 // *****************************************************************************
 // We'll read the points that forms the shape of the object from file
 // so we need some variables, functions, etc for that
@@ -273,19 +179,17 @@ point_t points[MAX_POINTS];
 
 int numPoints = 0;
 
-void addPoint(float x, float y, float e)
-{
+void addPoint(float x, float y, float e) {
   points[numPoints].x = x;
   points[numPoints].y = y;
   points[numPoints].e = e;
   numPoints++;
 }
 
-void readPatternFile()
-{
+void readPatternFile() {
   FILE *fptr;
 
-  if ((fptr = fopen("pattern.txt","r")) == NULL){
+  if ((fptr = fopen("pattern.txt", "r")) == NULL) {
     printf("Error opening pattern.txt file.");
     exit(1);
   }
@@ -293,7 +197,7 @@ void readPatternFile()
   float x, y, e;
 
   while (1) {
-    int valuesRead = fscanf(fptr,"%f %f %f", &x, &y, &e);
+    int valuesRead = fscanf(fptr, "%f %f %f", &x, &y, &e);
 
     if (valuesRead < 3) break;
 
@@ -305,10 +209,134 @@ void readPatternFile()
   fclose(fptr);
 }
 
+// *****************************************************************************
+// These functions read the settings from the config.txt file.
+
+#define BUFFER_SIZE 65536
+char *buffer;
+int bufferCounter;
+int bytesRead;
+
+void readConfigIntoBuffer() {
+  buffer = (char *)malloc(BUFFER_SIZE);
+  if (buffer == NULL) {
+    printf("ERROR: It was not possible to allocate memory buffer.");
+    exit(1);
+  }
+
+  FILE *fptr;
+  if ((fptr = fopen("config.txt", "r")) == NULL) {
+    printf("Error opening config.txt file.");
+    exit(1);
+  }
+
+  bytesRead = fread(buffer, 1, BUFFER_SIZE, fptr);
+
+  printf("Config file read: %d bytes\n", bytesRead);
+
+  fclose(fptr);
+}
+
+void bufferCounterReset() {
+  bufferCounter = 0;
+}
+
+int readLineFromBuffer(char *str, int num) {
+  int i = 0;
+
+  while (i < num - 1) {
+    char c = *(buffer + bufferCounter);
+    bufferCounter++;
+
+    if (c == 0) {
+      break;
+    } else if (bufferCounter >= bytesRead) {
+      break;
+    } else if (c == '\n') {
+      break;
+    }
+
+    *(str + i) = c;
+    i++;
+  }
+
+  *(str + i) = 0;
+
+  if (bufferCounter >= bytesRead) {
+    return EOF;
+  }
+  return i;
+}
+
+float readConfigFloat(char *parameter, float def) {
+  int bytesRead;
+  char line[256];
+  char str[20];
+  float f;
+
+  bufferCounterReset();
+  while (readLineFromBuffer(line, sizeof(line)) >= 0) {
+    sscanf(line, "%s %f", str, &f);
+    if (strcmp(str, parameter) == 0) {
+      // Just some very primitive sanity check
+      if (m(f) >= 0 && f < 1000) {
+        def = f;
+        fprintf(fp, "; %s = %.2f\n", str, f);
+      }
+
+      break;
+    }
+  }
+  return def;
+}
+
+void readConfigFile() {
+  totalHeight = readConfigFloat("totalHeight", 50.0);
+  filamentDiameter = readConfigFloat("filamentDiameter", 1.75);
+  firstLayerHeight = readConfigFloat("firstLayerHeight", 0.2);
+  bedTemperature = readConfigFloat("bedTemperature", 60);
+  brimCount = readConfigFloat("brimCount", 5);
+  zSpeed = readConfigFloat("zSpeed", 10);
+  minRetractDistance = readConfigFloat("minRetractDistance", 1.0);
+  fanStartHeight = readConfigFloat("fanStartHeight", 0.6);
+
+  layerHeight = readConfigFloat("layerHeight", 0.20);
+  layerHeightStart = readConfigFloat("layerHeightStart", 0.20);
+  layerHeightFinish = readConfigFloat("layerHeightFinish", 0.20);
+
+  layerWidth = readConfigFloat("layerWidth", 0.40);
+  layerWidthStart = readConfigFloat("layerWidthStart", 0.40);
+  layerWidthFinish = readConfigFloat("layerWidthFinish", 0.40);
+
+  printSpeed = readConfigFloat("printSpeed", 20);
+  printSpeedStart = readConfigFloat("printSpeedStart", 20);
+  printSpeedFinish = readConfigFloat("printSpeedFinish", 20);
+
+  travelSpeed = readConfigFloat("travelSpeed", 120);
+  travelSpeedStart = readConfigFloat("travelSpeedStart", 120);
+  travelSpeedFinish = readConfigFloat("travelSpeedFinish", 120);
+
+  retractLength = readConfigFloat("retractLength", 1.0);
+  retractLengthStart = readConfigFloat("retractLengthStart", 1.0);
+  retractLengthFinish = readConfigFloat("retractLengthFinish", 1.0);
+
+  retractSpeed = readConfigFloat("retractSpeed", 25);
+  retractSpeedStart = readConfigFloat("retractSpeedStart", 25);
+  retractSpeedFinish = readConfigFloat("retractSpeedFinish", 25);
+
+  temperature = readConfigFloat("temperature", 230);
+  temperatureStart = readConfigFloat("temperatureStart", 230);
+  temperatureFinish = readConfigFloat("temperatureFinish", 230);
+
+  fanSpeed = readConfigFloat("fanSpeed", 0);
+  fanSpeedStart = readConfigFloat("fanSpeedStart", 0);
+  fanSpeedFinish = readConfigFloat("fanSpeedFinish", 0);
+}
 
 // *****************************************************************************
 // And this is our main program entry point!
 void main() {
+  readConfigIntoBuffer();
 
   printf("Starting... ");
 
@@ -367,8 +395,8 @@ void main() {
   float centerX = 0;
   float centerY = 0;
   for (int i = 0; i < numPoints; i++) {
-  	centerX += points[i].x;
-  	centerY += points[i].y;
+    centerX += points[i].x;
+    centerY += points[i].y;
   }
   centerX /= numPoints;
   centerY /= numPoints;
@@ -392,8 +420,7 @@ void main() {
 
       if (points[j].e == 0) {
         move(x, y);
-      }
-      else {
+      } else {
         extrude(x, y);
       }
     }
@@ -422,7 +449,7 @@ void main() {
 
     // Shows information on display about changing parameters
     fprintf(fp, "M117");
-    if (m(temperatureStart) != m(temperatureFinish)) fprintf(fp, " t=%.2f°C", temperature);
+    if (m(temperatureStart) != m(temperatureFinish)) fprintf(fp, " t=%.2fï¿½C", temperature);
     if (m(printSpeedStart) != m(printSpeedFinish)) fprintf(fp, " S=%.2fmm/s", printSpeed);
     if (m(travelSpeedStart) != m(travelSpeedFinish)) fprintf(fp, " T=%.2fmm/s", travelSpeed);
     if (m(retractSpeedStart) != m(retractSpeedFinish)) fprintf(fp, " R=%.2fmm/s", retractSpeed);
@@ -443,8 +470,7 @@ void main() {
     for (int j = 0; j < numPoints; j++) {
       if (points[j].e == 0) {
         move(points[j].x, points[j].y);
-      }
-      else {
+      } else {
         extrude(points[j].x, points[j].y);
       }
     }
