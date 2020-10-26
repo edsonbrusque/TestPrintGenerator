@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "global.h"
+
 #define BUFFER_SIZE 65536
 char *buffer;
 int bufferCounter;
@@ -73,6 +75,7 @@ float readConfigFloat(char *parameter, float def) {
       // Just some very primitive sanity check
       if (((int)(f*1000)) >= 0 && f < 1000) {
         def = f;
+        fprintf(fp, "; %s = %.2f\n", str, f);
       }
 
       break;
